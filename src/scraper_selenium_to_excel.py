@@ -58,7 +58,10 @@ HEADLESS = False
 MAX_PRODUCTS = 10
 
 # Beklenen ölçüler (eksik ölçü analizi için)
-EXPECTED_SIZES = ["30x40", "40x60", "50x70"]
+# Bu ölçüler satıcının her üründe olması beklenen ölçülerdir
+# Otomatik olarak tüm ölçüler tarandığı için, 
+# burada hangi ölçülerin eksik olduğunu raporlarda göreceksiniz
+EXPECTED_SIZES = ["30x40", "40x60", "50x70", "20x30", "60x90"]
 
 # Mockup tespiti için anahtar kelimeler
 MOCKUP_KEYWORDS = ["mockup", "mokap", "frame", "psd", "mock"]
@@ -380,6 +383,54 @@ def evaluate_missing_sizes(item, expected_sizes):
             missing_sizes.append(size)
     
     return missing_sizes
+
+def analyze_all_sizes_in_products(results):
+    """
+    Tüm ürünlerden benzersiz ölçüleri toplar ve analiz eder
+    Hangi ölçülerin hangi ürünlerde eksik olduğunu gösterir
+    """
+    all_sizes = set()
+    
+    # Tüm ürünlerden ölçüleri topla
+    for item in results:
+        variations = item.get("variations", [])
+        for var in variations:
+            # Eğer ölçü formatıysa (örn: "30x40", "40x60")
+            if 'x' in var.lower() or 'cm' in var.lower() or var.isdigit():
+                all_sizes.add(var)
+    
+    # Eksik ölçü analizi
+    size_analysis = {}
+    for size in all_sizes:
+        size_analysis[size] = {
+            'total_products': 0,
+            'products_with_this_size': 0,
+            'products_without_this_size': [],
+            'existence_rate': 0.0
+        }
+    
+    # Her ürün için hangi ölçülerin olduğunu kontrol et
+    for item in results:
+        variations = item.get("variations", [])
+        variations_lower = [v.lower() for v in variations]
+        
+        for size in all_sizes:
+            size_analysis[size]['total_products'] += 1
+            
+            if any(size.lower() in var for var in variations_lower):
+                size_analysis[size]['products_with_this_size'] += 1
+            else:
+                size_analysis[size]['products_without_this_size'].append({
+                    'title': item.get('title', 'Bilinmeyen'),
+                    'url': item.get('url', '')
+                })
+    
+    # Varlık oranını hesapla
+    for size, data in size_analysis.items():
+        if data['total_products'] > 0:
+            data['existence_rate'] = (data['products_with_this_size'] / data['total_products']) * 100
+    
+    return size_analysis
 
 def save_results_to_json(results, filename="scraped_products.json"):
     """Sonuçları JSON dosyasına kaydeder"""

@@ -97,6 +97,11 @@ def generate_excel_report(results, filename="rapor.xlsx"):
         mockup_df = pd.DataFrame(mockup_analysis)
         mockup_df.to_excel(excel_writer, sheet_name='Mockup Analizi', index=False)
         
+        # Tüm ölçüler analizi sayfası (yeni - gerçek ölçülerin analizi)
+        all_sizes_analysis = create_all_sizes_analysis(results)
+        sizes_df = pd.DataFrame(all_sizes_analysis)
+        sizes_df.to_excel(excel_writer, sheet_name='Gercek Olculer Analizi', index=False)
+        
         # Excel dosyasını kaydet
         excel_writer.close()
         
@@ -189,6 +194,57 @@ def create_mockup_analysis(results):
             "Mockup Sayısı": len(mockup_images),
             "Mockup Oranı (%)": round(mockup_ratio * 100, 2),
             "Mockup Durumu": "Mockup Var" if mockup_images else "Mockup Yok"
+        })
+    
+    return analysis_data
+
+def create_all_sizes_analysis(results):
+    """
+    Gerçek ürünlerden toplanan tüm ölçülerin analizini oluşturur
+    Hangi ölçünün kaç ürün
+
+de var/eksik olduğunu gösterir
+    """
+    if not results:
+        return []
+    
+    # Tüm benzersiz ölçüleri topla
+    all_sizes = set()
+    for item in results:
+        variations = item.get("variations", [])
+        for var in variations:
+            # Ölçü formatı olabilir (örn: "30x40", "40x60 cm", "XL", "S")
+            var_clean = str(var).strip()
+            if len(var_clean) < 20:  # Çok uzun metinleri filtrele
+                all_sizes.add(var_clean)
+    
+    # Her ölçü için istatistik
+    analysis_data = []
+    for size in sorted(all_sizes):
+        products_with = 0
+        products_without = 0
+        products_with_list = []
+        products_without_list = []
+        
+        for item in results:
+            variations = item.get("variations", [])
+            if size in variations or size.lower() in [v.lower() for v in variations]:
+                products_with += 1
+                products_with_list.append(item.get("title", "Bilinmeyen"))
+            else:
+                products_without += 1
+                products_without_list.append(item.get("title", "Bilinmeyen"))
+        
+        total = len(results)
+        existence_rate = round((products_with / total * 100), 2) if total > 0 else 0
+        
+        analysis_data.append({
+            "Olcu": size,
+            "Mevcut Urun Sayisi": products_with,
+            "Eksik Urun Sayisi": products_without,
+            "Toplam Urun": total,
+            "Varlik Orani (%)": existence_rate,
+            "Durum": "Mevcut" if products_with > 0 else "Eksik"
         })
     
     return analysis_data
