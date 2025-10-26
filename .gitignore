@@ -1,0 +1,173 @@
+# Trendyol Scraper - Git Ignore Dosyası
+# =====================================
+# 
+# Bu dosya Git versiyon kontrolünde hangi dosyaların göz ardı edileceğini belirler.
+
+# Python
+# ======
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+# ===================
+.venv/
+venv/
+ENV/
+env/
+.env
+.venv
+
+# IDE ve Editor Dosyaları
+# =======================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Proje Özel Dosyalar
+# ===================
+# Çıktı dosyaları
+scraped_products.json
+rapor.xlsx
+detayli_rapor.xlsx
+test_rapor.xlsx
+
+# ChromeDriver (kullanıcı tarafından yerel olarak konulacak)
+tools/chromedriver.exe
+tools/chromedriver
+tools/chromedriver_mac
+tools/chromedriver_linux
+
+# Log dosyaları
+*.log
+logs/
+scraper.log
+
+# Geçici dosyalar
+temp/
+tmp/
+*.tmp
+*.temp
+
+# Konfigürasyon dosyaları (hassas bilgiler içerebilir)
+config.ini
+settings.json
+secrets.json
+
+# Test dosyaları
+test_results/
+test_output/
+
+# Backup dosyaları
+*.bak
+*.backup
+*.old
+
+# Selenium ve WebDriver
+# ====================
+geckodriver.log
+chromedriver.log
+selenium-debug.log
+
+# Jupyter Notebook
+# ===============
+.ipynb_checkpoints
+
+# pytest
+# ======
+.pytest_cache/
+.coverage
+htmlcov/
+
+# mypy
+# ====
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+# =================
+.pyre/
+
+# Scraping Cache
+# ==============
+cache/
+.cache/
+scraping_cache/
+
+# Excel dosyaları (çıktılar)
+# ==========================
+*.xlsx
+*.xls
+*.csv
+
+# JSON dosyaları (çıktılar)
+# =========================
+*.json
+
+# Resim dosyaları (indirilen görseller)
+# =====================================
+images/
+downloads/
+screenshots/
+
+# Sistem dosyaları
+# ================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+# =======
+*.lnk
+
+# Linux
+# =====
+*~
+
+# macOS
+# =====
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk

@@ -1,0 +1,67 @@
+# Trendyol Scraper - Python Bağımlılıkları
+# ===========================================
+# 
+# Bu dosya projenin çalışması için gerekli Python paketlerini içerir.
+# 
+# KURULUM:
+# pip install -r requirements.txt
+#
+# VEYA:
+# python -m pip install -r requirements.txt
+
+# Web scraping ve tarayıcı otomasyonu
+selenium>=4.15.0
+
+# HTML parsing ve web scraping
+beautifulsoup4>=4.12.0
+
+# Veri analizi ve Excel işlemleri
+pandas>=2.1.0
+openpyxl>=3.1.0
+
+# Çevre değişkenleri yönetimi
+python-dotenv>=1.0.0
+
+# HTTP istekleri
+requests>=2.31.0
+
+# URL işlemleri (Python standart kütüphanesi ile birlikte gelir)
+# urllib3>=2.0.0  # Selenium ile birlikte gelir
+
+# JSON işlemleri (Python standart kütüphanesi ile birlikte gelir)
+# datetime (Python standart kütüphanesi ile birlikte gelir)
+# os (Python standart kütüphanesi ile birlikte gelir)
+# time (Python standart kütüphanesi ile birlikte gelir)
+# random (Python standart kütüphanesi ile birlikte gelir)
+# re (Python standart kütüphanesi ile birlikte gelir)
+
+# Opsiyonel: Gelişmiş görsel analizi için (gelecekte eklenebilir)
+# pillow>=10.0.0
+# opencv-python>=4.8.0
+# transformers>=4.35.0  # CLIP için
+
+# Opsiyonel: Logging ve monitoring için
+# loguru>=0.7.0
+
+# Opsiyonel: Progress bar için
+# tqdm>=4.66.0
+
+# Opsiyonel: Konfigürasyon yönetimi için
+# pyyaml>=6.0.0
+
+# Opsiyonel: Veritabanı bağlantısı için (gelecekte eklenebilir)
+# sqlite3  # Python standart kütüphanesi ile birlikte gelir
+# sqlalchemy>=2.0.0
+
+# Opsiyonel: API entegrasyonu için
+# fastapi>=0.104.0
+# uvicorn>=0.24.0
+
+# Opsiyonel: Test için
+# pytest>=7.4.0
+# pytest-cov>=4.1.0
+
+# Opsiyonel: Code quality için
+# black>=23.0.0
+# flake8>=6.0.0
+# mypy>=1.6.0

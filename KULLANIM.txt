@@ -1,0 +1,73 @@
+===================================================
+TRENDYOL SCRAPER - KULLANIM REHBERI
+===================================================
+
+ADIM 1: SANAL ORTAM AKTIF ET
+--------------------------------
+.venv\Scripts\activate.bat
+
+
+ADIM 2: SATICI URL'SI ALMA
+--------------------------------
+Trendyol'da herhangi bir urune tiklayin.
+Urun sayfasinda "Satici: XXXXX" linkine tiklayin.
+Tarayici adres cubugundaki URL'yi kopyalayin.
+
+ORNEK URL FORMATI:
+https://www.trendyol.com/magaza/[magaza-adi]
+
+Alternatif: Herhangi bir urunde sag altta "Satici Profili" linkine tiklayin.
+
+
+ADIM 3: SCRAPER'I CALISTIRMA
+--------------------------------
+Secenek 1 - URL'yi komut satirinda verin:
+python src\scraper_selenium_to_excel.py https://www.trendyol.com/magaza/xxxx
+
+Secenek 2 - Interaktif mod (URL soracak):
+python src\scraper_selenium_to_excel.py
+
+
+ADIM 4: CIKTI DOSYALARI
+--------------------------------
+Script tamamlandiginda asagidaki dosyalar olusacak:
+
+1. scraped_products.json
+   - Ham scraping verileri (JSON format)
+
+2. rapor.xlsx
+   - Excel raporu (4 sayfa):
+     * Ana Rapor: Tum urun bilgileri
+     * Ozet Istatistikler: Toplam, ortalamalar
+     * Eksik Olculer Analizi: Eksik olculer
+     * Mockup Analizi: Mockup goruntuler
+
+
+ADIM 5: SORUN GIDERME
+--------------------------------
+Sorun: ChromeDriver bulunamadi
+Cozum: tools\ klasorunde chromedriver.exe oldugundan emin olun
+
+Sorun: "Sayfa yuklenemedi" hatasi
+Cozum: Internet baglantinizi kontrol edin
+
+Sorun: URL yanlis
+Cozum: URL formatini kontrol edin, "trendyol.com/magaza/" icerdiginden emin olun
+
+
+KONFIGURASYON
+--------------------------------
+src\scraper_selenium_to_excel.py dosyasinda:
+
+MAX_PRODUCTS = 10      # Test icin 10 urun
+HEADLESS = False       # Tarayiciyi goster
+
+
+TIP: URL ORNEGI
+--------------------------------
+https://www.trendyol.com/magaza/fotografcanta
+https://www.trendyol.com/magaza/karaca
+https://www.trendyol.com/magaza/xxx
+
+
+===================================================
